@@ -62,6 +62,7 @@ export default function Observation() {
     <section
       ref={sectionRef}
       id="observation"
+      className="observation-section"
       style={{
         background: '#000',
         color: '#fff',

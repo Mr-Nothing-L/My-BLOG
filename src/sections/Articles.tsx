@@ -36,6 +36,7 @@ export default function Articles() {
   return (
     <section
       id="articles"
+      className="articles-section"
       style={{
         position: 'relative',
         width: '100%',

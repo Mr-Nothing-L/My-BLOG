@@ -64,15 +64,239 @@
   }
 }
 
+/* ============================================
+   4K / Large Desktop (2560px+)
+   ============================================ */
+@media (min-width: 2560px) {
+  .hero-text-wrapper h1 {
+    font-size: clamp(64px, 4.5vw, 120px) !important;
+  }
+  .hero-text-wrapper .hero-notes p {
+    font-size: 16px !important;
+    line-height: 2 !important;
+    width: 40ch !important;
+  }
+  .manifesto-grid p {
+    font-size: 18px !important;
+    line-height: 32px !important;
+  }
+  .articles-section h2 {
+    font-size: clamp(48px, 4vw, 80px) !important;
+  }
+  .articles-section h3 {
+    font-size: 26px !important;
+  }
+}
+
+/* ============================================
+   Tablet (1024px and below)
+   ============================================ */
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh;
+  }
+  .hero-left {
+    width: 100% !important;
+    min-width: auto !important;
+    height: 60vh;
+    min-height: 500px;
+  }
+  .hero-right {
+    width: 100% !important;
+    height: 40vh;
+    min-height: 300px;
+  }
+  .hero-nav {
+    width: 100% !important;
+    min-width: auto !important;
+    padding: 16px 24px !important;
+  }
+  .hero-text-wrapper {
+    left: 24px !important;
+    right: 24px !important;
+    width: calc(100% - 48px) !important;
+    top: 18vh !important;
+  }
+  .hero-text-wrapper h1 {
+    font-size: clamp(36px, 8vw, 64px) !important;
+  }
+  .hero-notes {
+    height: auto !important;
+    margin-top: 32px !important;
+  }
+  .hero-notes p {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+    max-width: 50ch;
+  }
+  .manifesto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+/* ============================================
+   Mobile (768px and below)
+   ============================================ */
 @media (max-width: 768px) {
+  /* Hero */
+  .hero-section {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .hero-left {
+    width: 100% !important;
+    min-width: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding-bottom: 40px;
+  }
+  .hero-right {
+    width: 100% !important;
+    height: 50vh !important;
+    min-height: 300px !important;
+  }
+  .hero-nav {
+    position: relative !important;
+    width: 100% !important;
+    min-width: auto !important;
+    padding: 16px 20px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px;
+  }
+  .hero-nav > div {
+    flex-wrap: wrap;
+    gap: 16px !important;
+  }
+  .hero-nav > div > div {
+    gap: 16px !important;
+  }
+  .hero-text-wrapper {
+    position: relative !important;
+    left: 20px !important;
+    right: 20px !important;
+    width: calc(100% - 40px) !important;
+    top: 40px !important;
+    padding-bottom: 40px;
+  }
+  .hero-text-wrapper h1 {
+    font-size: clamp(32px, 10vw, 48px) !important;
+  }
+  .hero-notes {
+    height: auto !important;
+    margin-top: 24px !important;
+  }
+  .hero-notes p {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin-bottom: 16px !important;
+    width: 100% !important;
+    font-size: 13px !important;
+  }
+
+  /* Manifesto */
+  #manifesto {
+    padding: 80px 20px !important;
+  }
+  .manifesto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .manifesto-grid p {
+    font-size: 14px !important;
+    line-height: 24px !important;
+  }
+
+  /* Facilities */
   .facilities-grid {
     grid-template-columns: 1fr !important;
   }
   .facilities-grid > div {
     border-right: none !important;
     border-bottom: 1px solid #000;
+    padding: 32px 20px !important;
   }
   .facilities-grid > div:last-child {
     border-bottom: none;
+  }
+
+  /* Observation */
+  .observation-section {
+    padding: 80px 20px !important;
+    min-height: auto !important;
+  }
+  .observation-section h3 {
+    margin-bottom: 32px !important;
+  }
+
+  /* Archives */
+  #archives {
+    min-height: auto !important;
+  }
+  #archives .scene {
+    height: 70vh !important;
+    position: relative !important;
+  }
+  .carousel {
+    width: 280px !important;
+    height: 350px !important;
+  }
+  .carousel__cell {
+    width: 240px !important;
+    height: 300px !important;
+  }
+  .preview {
+    padding: 0 5vw !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Articles */
+  .articles-section {
+    padding: 80px 20px !important;
+  }
+  .articles-section > div > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer */
+  .site-footer {
+    flex-direction: column !important;
+    gap: 12px;
+    text-align: center;
+    padding: 24px 20px !important;
+  }
+}
+
+/* ============================================
+   Small Mobile (480px and below)
+   ============================================ */
+@media (max-width: 480px) {
+  .hero-text-wrapper h1 {
+    font-size: clamp(28px, 12vw, 40px) !important;
+  }
+  .hero-nav span:first-child {
+    font-size: 16px !important;
+  }
+  .hero-nav a {
+    font-size: 11px !important;
+  }
+  .carousel {
+    width: 220px !important;
+    height: 280px !important;
+  }
+  .carousel__cell {
+    width: 190px !important;
+    height: 240px !important;
   }
 }

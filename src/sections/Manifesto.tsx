@@ -71,6 +71,7 @@ export default function Manifesto() {
       }}
     >
       <div
+        className="manifesto-grid"
         style={{
           width: '100%',
           maxWidth: '1360px',

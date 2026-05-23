@@ -18,6 +18,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      className="hero-section"
       style={{
         position: 'relative',
         width: '100%',
@@ -27,6 +28,7 @@ export default function Hero() {
       }}
     >
       <div
+        className="hero-left"
         style={{
           position: 'relative',
           width: '40%',
@@ -37,6 +39,7 @@ export default function Hero() {
       >
         {/* Navigation */}
         <nav
+          className="hero-nav"
           style={{
             position: 'fixed',
             top: 0,
@@ -99,6 +102,7 @@ export default function Hero() {
 
         {/* Hero Title */}
         <div
+          className="hero-text-wrapper"
           style={{
             position: 'absolute',
             left: '40px',
@@ -145,6 +149,7 @@ export default function Hero() {
           </h1>
 
           <div
+            className="hero-notes"
             style={{
               position: 'relative',
               marginTop: '54px',
@@ -204,6 +209,7 @@ export default function Hero() {
       </div>
 
       <div
+        className="hero-right"
         style={{
           position: 'relative',
           width: '60%',
