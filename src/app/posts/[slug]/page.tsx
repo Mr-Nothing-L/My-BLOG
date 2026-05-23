@@ -7,8 +7,11 @@ export const revalidate = 60;
 
 export async function generateStaticParams() {
   const posts = await getPosts();
+  if (posts.length === 0) {
+    return [{ slug: "hello-world" }];
+  }
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.slug || "untitled",
   }));
 }
 
