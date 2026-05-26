@@ -47,12 +47,12 @@ export default function About() {
     const elements = contentRef.current.querySelectorAll(".reveal");
     gsap.fromTo(
       elements,
-      { opacity: 0, y: 30 },
+      { autoAlpha: 0, y: 30 },
       {
-        opacity: 1,
+        autoAlpha: 1,
         y: 0,
         duration: 0.8,
-        stagger: 0.12,
+        stagger: { each: 0.12, from: "start" },
         ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,

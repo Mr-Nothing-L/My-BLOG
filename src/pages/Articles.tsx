@@ -44,12 +44,12 @@ export default function Articles() {
     const cards = gridRef.current.querySelectorAll(".article-card");
     gsap.fromTo(
       cards,
-      { opacity: 0, y: 30 },
+      { autoAlpha: 0, y: 30 },
       {
-        opacity: 1,
+        autoAlpha: 1,
         y: 0,
         duration: 0.6,
-        stagger: 0.08,
+        stagger: { each: 0.08, from: "start" },
         ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -59,6 +59,26 @@ export default function Articles() {
       }
     );
   }, { scope: sectionRef, dependencies: [posts] });
+
+  const handleCardEnter = (e: React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.currentTarget, {
+      background: "rgba(255,255,255,0.03)",
+      borderColor: "rgba(0,229,255,0.2)",
+      scale: 1.01,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleCardLeave = (e: React.MouseEvent<HTMLElement>) => {
+    gsap.to(e.currentTarget, {
+      background: "rgba(0,0,0,0.6)",
+      borderColor: "transparent",
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
 
   return (
     <section
@@ -146,18 +166,12 @@ export default function Articles() {
                   backdropFilter: "blur(4px)",
                   padding: "32px",
                   cursor: "pointer",
-                  transition: "background 0.3s, border-color 0.3s",
                   border: "1px solid transparent",
+                  willChange: "transform",
+                  visibility: "hidden",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                  e.currentTarget.style.borderColor =
-                    "rgba(0,229,255,0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(0,0,0,0.6)";
-                  e.currentTarget.style.borderColor = "transparent";
-                }}
+                onMouseEnter={handleCardEnter}
+                onMouseLeave={handleCardLeave}
               >
                 {post.tags.length > 0 && (
                   <div

@@ -155,12 +155,13 @@
   text-transform: uppercase;
   color: #fff;
   opacity: 0;
-  transition: opacity 0.3s ease;
   white-space: nowrap;
+  transform: translateX(-4px);
 }
 
-.orbit-nav-item:hover .orbit-nav-label {
+.orbit-nav-item.active .orbit-nav-label {
   opacity: 1;
+  transform: translateX(0);
 }
 
 /* ── Content Layer ── */

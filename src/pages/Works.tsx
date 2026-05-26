@@ -19,13 +19,13 @@ export default function Works() {
     const items = gridRef.current.querySelectorAll(".work-item");
     gsap.fromTo(
       items,
-      { opacity: 0, y: 50, scale: 0.95 },
+      { autoAlpha: 0, y: 50, scale: 0.95 },
       {
-        opacity: 1,
+        autoAlpha: 1,
         y: 0,
         scale: 1,
         duration: 0.8,
-        stagger: 0.08,
+        stagger: { each: 0.08, from: "start" },
         ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -35,6 +35,24 @@ export default function Works() {
       }
     );
   }, { scope: sectionRef, dependencies: [] });
+
+  const handleWorkEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      background: "rgba(255,255,255,0.04)",
+      scale: 1.01,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleWorkLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      background: "rgba(0,0,0,0.7)",
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
 
   return (
     <section
@@ -75,16 +93,23 @@ export default function Works() {
             <div
               key={index}
               className="work-item"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={(e) => {
+                setHoveredIndex(index);
+                handleWorkEnter(e);
+              }}
+              onMouseLeave={(e) => {
+                setHoveredIndex(null);
+                handleWorkLeave(e);
+              }}
               style={{
                 background: "rgba(0,0,0,0.7)",
                 backdropFilter: "blur(4px)",
                 padding: "32px",
                 cursor: "pointer",
-                transition: "background 0.3s",
                 position: "relative",
                 overflow: "hidden",
+                willChange: "transform",
+                visibility: "hidden",
               }}
             >
               {/* Placeholder image area */}
@@ -101,7 +126,6 @@ export default function Works() {
                   justifyContent: "center",
                   marginBottom: "16px",
                   border: "1px solid rgba(255,255,255,0.08)",
-                  transition: "background 0.3s, border-color 0.3s",
                   borderColor:
                     hoveredIndex === index
                       ? "rgba(0,229,255,0.3)"

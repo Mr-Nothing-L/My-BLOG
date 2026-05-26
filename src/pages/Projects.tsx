@@ -19,12 +19,12 @@ export default function Projects() {
     const cards = gridRef.current.querySelectorAll(".project-card-wrapper");
     gsap.fromTo(
       cards,
-      { opacity: 0, y: 40 },
+      { autoAlpha: 0, y: 40 },
       {
-        opacity: 1,
+        autoAlpha: 1,
         y: 0,
         duration: 0.8,
-        stagger: 0.1,
+        stagger: { each: 0.1, from: "start" },
         ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -34,6 +34,28 @@ export default function Projects() {
       }
     );
   }, { scope: sectionRef, dependencies: [] });
+
+  const handleCardEnter = (e: React.MouseEvent<HTMLDivElement>, color: string) => {
+    const el = e.currentTarget;
+    gsap.to(el, {
+      borderColor: color,
+      boxShadow: `0 0 30px ${color}25`,
+      scale: 1.015,
+      duration: 0.35,
+      ease: "power2.out",
+    });
+  };
+
+  const handleCardLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    gsap.to(el, {
+      borderColor: "rgba(255,255,255,0.1)",
+      boxShadow: "none",
+      scale: 1,
+      duration: 0.35,
+      ease: "power2.out",
+    });
+  };
 
   return (
     <section
@@ -75,7 +97,7 @@ export default function Projects() {
               key={project.slug}
               className="project-card-wrapper"
               onClick={() => transitionTo(`/project/${project.slug}`)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", visibility: "hidden" }}
             >
               <div
                 className="project-card"
@@ -87,18 +109,10 @@ export default function Projects() {
                   background: "rgba(0,0,0,0.7)",
                   backdropFilter: "blur(8px)",
                   border: "1px solid rgba(255,255,255,0.1)",
-                  transition: "border-color 0.3s, box-shadow 0.3s",
+                  willChange: "transform",
                 }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = project.color;
-                  el.style.boxShadow = `0 0 20px ${project.color}20`;
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.borderColor = "rgba(255,255,255,0.1)";
-                  el.style.boxShadow = "none";
-                }}
+                onMouseEnter={(e) => handleCardEnter(e, project.color)}
+                onMouseLeave={handleCardLeave}
               >
                 <div
                   style={{
