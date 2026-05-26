@@ -12,25 +12,14 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 0%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --accent-red: #ff2a2a;
+    --accent-blue: #2a5fff;
+    --accent-cyan: #00e5ff;
+    --accent-amber: #ff9500;
+    --accent-purple: #a855f7;
+    --accent-green: #22c55e;
     --radius: 0px;
   }
 
@@ -46,257 +35,316 @@
   }
 }
 
-@keyframes blur-text {
-  0% {
-    filter: blur(0px);
+/* ── Keyframe Animations ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes orbit-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes typewriter-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes gravitational-pull {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(var(--gx), var(--gy)) scale(0); }
+}
+
+/* ── Terminal Cursor ── */
+.terminal-cursor::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  color: var(--accent-cyan);
+}
+
+/* ── Scanline Overlay ── */
+.scanline-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 229, 255, 0.08),
+    transparent
+  );
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Page Transition Overlay ── */
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9000;
+  pointer-events: none;
+}
+
+/* ── Orbit Navigation ── */
+.orbit-nav {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.orbit-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.orbit-nav-item:hover,
+.orbit-nav-item.active {
+  opacity: 1;
+}
+
+.orbit-nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  transition: transform 0.3s ease;
+}
+
+.orbit-nav-item:hover .orbit-nav-dot,
+.orbit-nav-item.active .orbit-nav-dot {
+  transform: scale(1.5);
+}
+
+.orbit-nav-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.orbit-nav-item:hover .orbit-nav-label {
+  opacity: 1;
+}
+
+/* ── Content Layer ── */
+.content-layer {
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Section Base ── */
+.section-dark {
+  background: transparent;
+  color: #fff;
+  min-height: 100vh;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  margin: 0 0 48px 0;
+}
+
+/* ── Project Cards ── */
+.project-card {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: var(--card-accent, #fff);
+  box-shadow: 0 0 20px var(--card-glow, rgba(255, 255, 255, 0.1));
+}
+
+/* ── Tech Stack Tags ── */
+.tech-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+  transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Article Cards ── */
+.article-card {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.article-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Timeline ── */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent-cyan),
+    transparent
+  );
+}
+
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan);
+}
+
+/* ── 4K / Large Desktop ── */
+@media (min-width: 2560px) {
+  .section-label {
+    font-size: 14px !important;
+    margin-bottom: 64px !important;
   }
-  100% {
-    filter: blur(4px);
+  .hero-title {
+    font-size: clamp(96px, 7vw, 180px) !important;
+  }
+  .hero-subtitle {
+    font-size: 24px !important;
+  }
+  .hero-lead {
+    font-size: 18px !important;
+    line-height: 2 !important;
+    max-width: 50ch !important;
+  }
+  .page-title {
+    font-size: clamp(56px, 5vw, 100px) !important;
+  }
+  .page-subtitle {
+    font-size: 22px !important;
+  }
+  .body-text {
+    font-size: 18px !important;
+    line-height: 1.9 !important;
+  }
+  .project-card h3 {
+    font-size: 28px !important;
+  }
+  .tech-tag {
+    font-size: 12px !important;
+    padding: 4px 12px !important;
+  }
+  .orbit-nav {
+    right: 48px;
+  }
+  .orbit-nav-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .orbit-nav-label {
+    font-size: 12px !important;
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .orbit-nav {
+    right: 16px;
+    gap: 16px;
+  }
+  .orbit-nav-label {
+    display: none;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .orbit-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .orbit-nav-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .orbit-nav-label {
+    display: block;
+    font-size: 9px;
+    opacity: 0.6;
+  }
+  .orbit-nav-item.active .orbit-nav-label {
     opacity: 1;
   }
-  50% {
-    opacity: 0.3;
-  }
 }
 
-/* ============================================
-   4K / Large Desktop (2560px+)
-   ============================================ */
-@media (min-width: 2560px) {
-  .hero-text-wrapper h1 {
-    font-size: clamp(64px, 4.5vw, 120px) !important;
-  }
-  .hero-text-wrapper .hero-notes p {
-    font-size: 16px !important;
-    line-height: 2 !important;
-    width: 40ch !important;
-  }
-  .manifesto-grid p {
-    font-size: 18px !important;
-    line-height: 32px !important;
-  }
-  .articles-section h2 {
-    font-size: clamp(48px, 4vw, 80px) !important;
-  }
-  .articles-section h3 {
-    font-size: 26px !important;
-  }
-}
-
-/* ============================================
-   Tablet (1024px and below)
-   ============================================ */
-@media (max-width: 1024px) {
-  .hero-section {
-    flex-direction: column !important;
-    height: auto !important;
-    min-height: 100vh;
-  }
-  .hero-left {
-    width: 100% !important;
-    min-width: auto !important;
-    height: 60vh;
-    min-height: 500px;
-  }
-  .hero-right {
-    width: 100% !important;
-    height: 40vh;
-    min-height: 300px;
-  }
-  .hero-nav {
-    width: 100% !important;
-    min-width: auto !important;
-    padding: 16px 24px !important;
-  }
-  .hero-text-wrapper {
-    left: 24px !important;
-    right: 24px !important;
-    width: calc(100% - 48px) !important;
-    top: 18vh !important;
-  }
-  .hero-text-wrapper h1 {
-    font-size: clamp(36px, 8vw, 64px) !important;
-  }
-  .hero-notes {
-    height: auto !important;
-    margin-top: 32px !important;
-  }
-  .hero-notes p {
-    position: relative !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    margin-bottom: 16px !important;
-    width: 100% !important;
-    max-width: 50ch;
-  }
-  .manifesto-grid {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-}
-
-/* ============================================
-   Mobile (768px and below)
-   ============================================ */
-@media (max-width: 768px) {
-  /* Hero */
-  .hero-section {
-    flex-direction: column !important;
-    height: auto !important;
-  }
-  .hero-left {
-    width: 100% !important;
-    min-width: auto !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding-bottom: 40px;
-  }
-  .hero-right {
-    width: 100% !important;
-    height: 50vh !important;
-    min-height: 300px !important;
-  }
-  .hero-nav {
-    position: relative !important;
-    width: 100% !important;
-    min-width: auto !important;
-    padding: 16px 20px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 12px;
-  }
-  .hero-nav > div {
-    flex-wrap: wrap;
-    gap: 16px !important;
-  }
-  .hero-nav > div > div {
-    gap: 16px !important;
-  }
-  .hero-text-wrapper {
-    position: relative !important;
-    left: 20px !important;
-    right: 20px !important;
-    width: calc(100% - 40px) !important;
-    top: 40px !important;
-    padding-bottom: 40px;
-  }
-  .hero-text-wrapper h1 {
-    font-size: clamp(32px, 10vw, 48px) !important;
-  }
-  .hero-notes {
-    height: auto !important;
-    margin-top: 24px !important;
-  }
-  .hero-notes p {
-    position: relative !important;
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    margin-bottom: 16px !important;
-    width: 100% !important;
-    font-size: 13px !important;
-  }
-
-  /* Manifesto */
-  #manifesto {
-    padding: 80px 20px !important;
-  }
-  .manifesto-grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
-  .manifesto-grid p {
-    font-size: 14px !important;
-    line-height: 24px !important;
-  }
-
-  /* Facilities */
-  .facilities-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .facilities-grid > div {
-    border-right: none !important;
-    border-bottom: 1px solid #000;
-    padding: 32px 20px !important;
-  }
-  .facilities-grid > div:last-child {
-    border-bottom: none;
-  }
-
-  /* Observation */
-  .observation-section {
-    padding: 80px 20px !important;
-    min-height: auto !important;
-  }
-  .observation-section h3 {
-    margin-bottom: 32px !important;
-  }
-
-  /* Archives */
-  #archives {
-    min-height: auto !important;
-  }
-  #archives .scene {
-    height: 70vh !important;
-    position: relative !important;
-  }
-  .carousel {
-    width: 280px !important;
-    height: 350px !important;
-  }
-  .carousel__cell {
-    width: 240px !important;
-    height: 300px !important;
-  }
-  .preview {
-    padding: 0 5vw !important;
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Articles */
-  .articles-section {
-    padding: 80px 20px !important;
-  }
-  .articles-section > div > div:last-child {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Footer */
-  .site-footer {
-    flex-direction: column !important;
-    gap: 12px;
-    text-align: center;
-    padding: 24px 20px !important;
-  }
-}
-
-/* ============================================
-   Small Mobile (480px and below)
-   ============================================ */
+/* ── Small Mobile ── */
 @media (max-width: 480px) {
-  .hero-text-wrapper h1 {
-    font-size: clamp(28px, 12vw, 40px) !important;
+  .orbit-nav {
+    gap: 20px;
+    padding: 12px 8px;
   }
-  .hero-nav span:first-child {
-    font-size: 16px !important;
-  }
-  .hero-nav a {
-    font-size: 11px !important;
-  }
-  .carousel {
-    width: 220px !important;
-    height: 280px !important;
-  }
-  .carousel__cell {
-    width: 190px !important;
-    height: 240px !important;
+  .orbit-nav-label {
+    font-size: 8px;
   }
 }

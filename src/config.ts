@@ -1,230 +1,275 @@
 export interface SiteConfig {
-  language: string
-  siteTitle: string
-  siteDescription: string
+  language: string;
+  siteTitle: string;
+  siteDescription: string;
 }
 
-export interface NavigationLink {
-  label: string
-  href: string
-}
-
-export interface NavigationConfig {
-  brandName: string
-  links: NavigationLink[]
+export interface OrbitNavItem {
+  path: string;
+  label: string;
+  color: string;
 }
 
 export interface HeroConfig {
-  eyebrow: string
-  titleLines: string[]
-  leadText: string
-  supportingNotes: string[]
+  eyebrow: string;
+  titleLines: string[];
+  subtitle: string;
+  leadText: string;
 }
 
-export interface ManifestoConfig {
-  videoPath: string
-  text: string
+export interface AboutConfig {
+  sectionLabel: string;
+  bio: string[];
+  skills: string[];
+  timeline: TimelineEvent[];
 }
 
-export interface FacilityArticle {
-  title: string
-  paragraphs: string[]
+export interface TimelineEvent {
+  year: string;
+  title: string;
+  description: string;
 }
 
-export interface FacilityItem {
-  slug: string
-  name: string
-  code: string
-  address: string
-  status: string
-  email: string
-  phone: string
-  ctaText: string
-  ctaHref: string
-  image: string
-  utcOffset: number
-  article: FacilityArticle
+export interface ProjectItem {
+  slug: string;
+  name: string;
+  code: string;
+  year: string;
+  description: string;
+  techStack: string[];
+  status: string;
+  link: string;
+  github: string;
+  color: string;
 }
 
-export interface FacilitiesConfig {
-  sectionLabel: string
-  detailBackText: string
-  detailNotFoundText: string
-  detailReturnText: string
-  items: FacilityItem[]
+export interface ProjectsConfig {
+  sectionLabel: string;
+  items: ProjectItem[];
 }
 
-export interface ObservationConfig {
-  sectionLabel: string
-  videoPath: string
-  statusText: string
-  latLabel: string
-  lonLabel: string
-  initialLat: number
-  initialLon: number
+export interface WorkItem {
+  src: string;
+  label: string;
+  category: string;
+  year: string;
 }
 
-export interface ArchiveItem {
-  src: string
-  label: string
+export interface WorksConfig {
+  sectionLabel: string;
+  vaultTitle: string;
+  closeText: string;
+  items: WorkItem[];
 }
 
-export interface ArchivesConfig {
-  sectionLabel: string
-  vaultTitle: string
-  closeText: string
-  items: ArchiveItem[]
+export interface ArticlesConfig {
+  sectionLabel: string;
+  subtitle: string;
 }
 
 export interface FooterConfig {
-  copyrightText: string
-  statusText: string
+  copyrightText: string;
+  statusText: string;
 }
 
+// ─────────────────────────────────────────────
+// SITE CONFIG
+// ─────────────────────────────────────────────
 export const siteConfig: SiteConfig = {
   language: "zh-CN",
-  siteTitle: "月球观测站",
-  siteDescription: "一座实验性的轨道观测站点，记录关于月球、空间与观测的一切。",
-}
+  siteTitle: "MR.L · 信息奇点",
+  siteDescription: "Mr.L 的个人空间 — 计算机视觉、深度学习与代码艺术的交汇点",
+};
 
-export const navigationConfig: NavigationConfig = {
-  brandName: "LUNAR",
-  links: [
-    { label: "观测", href: "#observation" },
-    { label: "设施", href: "#facilities" },
-    { label: "档案", href: "#archives" },
-    { label: "文章", href: "#articles" },
-  ],
-}
+// ─────────────────────────────────────────────
+// ORBIT NAVIGATION
+// ─────────────────────────────────────────────
+export const orbitNavItems: OrbitNavItem[] = [
+  { path: "/", label: "奇点", color: "#ffffff" },
+  { path: "/about", label: "视界", color: "#ff2a2a" },
+  { path: "/projects", label: "吸积", color: "#2a5fff" },
+  { path: "/works", label: "透镜", color: "#00e5ff" },
+  { path: "/articles", label: "流束", color: "#ff9500" },
+];
 
+// ─────────────────────────────────────────────
+// HERO / PORTAL
+// ─────────────────────────────────────────────
 export const heroConfig: HeroConfig = {
-  eyebrow: "实验性轨道观测项目 / 2025",
-  titleLines: ["月球", "观测站"],
-  leadText: "我们建立了一座位于虚拟轨道的观测站点，通过 ASCII 字符重构月面，以数据与影像记录每一刻的月相变化。",
-  supportingNotes: [
-    "实时月面渲染系统，基于 WebGL 与字符编码",
-    "archive vault 持续收录历史观测数据与影像档案",
-    "所有数据向公众开放，欢迎成为观测协作者",
+  eyebrow: "COMPUTER VISION ENGINEER / 2025",
+  titleLines: ["MR.L", "信息奇点"],
+  subtitle: "代码即引力，数据即星光",
+  leadText:
+    "一名深耕计算机视觉与深度学习的工程师，在智能交通与自动驾驶的星图中寻找最优解。这里记录我的技术轨迹与创意碎片。",
+};
+
+// ─────────────────────────────────────────────
+// ABOUT / EVENT HORIZON
+// ─────────────────────────────────────────────
+export const aboutConfig: AboutConfig = {
+  sectionLabel: "视界 / EVENT HORIZON",
+  bio: [
+    "我是 Mr.L，一名专注于计算机视觉和深度学习的工程师。",
+    "在 3D 目标检测、车道线识别、交通事件判别和多目标跟踪领域有实际项目经验。",
+    "热衷于将前沿 AI 技术落地到真实场景中，同时也沉迷于构建开发者工具链。",
+    "相信代码是思考的外化，每一个项目都是向未知深处的一次引力探测。",
   ],
-}
+  skills: [
+    "Python",
+    "PyTorch",
+    "OpenCV",
+    "TensorFlow",
+    "CUDA",
+    "Docker",
+    "React",
+    "TypeScript",
+    "Shell",
+    "Git",
+    "Linux",
+    "Computer Vision",
+    "Deep Learning",
+    "MLOps",
+  ],
+  timeline: [
+    {
+      year: "2025",
+      title: "交通事件判别系统",
+      description: "构建端到端的交通视频分析系统，支持多类事件实时检测",
+    },
+    {
+      year: "2025",
+      title: "无人机多目标跟踪",
+      description: "UAV-MOT 项目，针对无人机视角下的多目标跟踪优化",
+    },
+    {
+      year: "2025",
+      title: "Agent Teams 插件",
+      description: "为 Claude Code 开发原生 Agent Teams 插件，支持随机人格与领袖模式",
+    },
+    {
+      year: "2024",
+      title: "3D 检测与车道识别",
+      description: "CenterPoint 3D 检测与 CLRNet 车道线检测的工程化实践",
+    },
+  ],
+};
 
-export const manifestoConfig: ManifestoConfig = {
-  videoPath: "",
-  text: "观测不仅是对遥远天体的凝视，更是一种对时间与存在的沉思。我们相信，在数字化时代，最原始的媒介——文字与符号——依然能够承载最深邃的诗意。月球观测站致力于用最简洁的技术语言，呈现最宏大的宇宙图景。",
-}
-
-export const facilitiesConfig: FacilitiesConfig = {
-  sectionLabel: "观测设施",
-  detailBackText: "返回设施目录",
-  detailNotFoundText: "未找到该设施",
-  detailReturnText: "返回目录",
+// ─────────────────────────────────────────────
+// PROJECTS / ACCRETION DISK
+// ─────────────────────────────────────────────
+export const projectsConfig: ProjectsConfig = {
+  sectionLabel: "吸积盘 / ACCRETION",
   items: [
     {
-      slug: "main-observatory",
-      name: "主观测台",
-      code: "OBS-01",
-      address: "虚拟轨道 / 近月点",
-      status: "运行中",
-      email: "obs@lunar.station",
-      phone: "",
-      ctaText: "查看详情",
-      ctaHref: "#",
-      image: "",
-      utcOffset: 8,
-      article: {
-        title: "主观测台",
-        paragraphs: [
-          "主观测台是整个站点的核心设施，配备高分辨率月面扫描系统。",
-          "通过实时数据传输，观测台能够捕捉月面最微小的变化，并生成 ASCII 字符可视化输出。",
-        ],
-      },
+      slug: "traffic-analyzer",
+      name: "交通事件判别系统",
+      code: "TRA-01",
+      year: "2025",
+      description:
+        "端到端交通视频分析系统。支持车辆检测、轨迹追踪、事件判别（违停、逆行、拥堵等），基于深度学习实现实时推理。",
+      techStack: ["Python", "PyTorch", "OpenCV", "YOLO", "Docker"],
+      status: "活跃开发中",
+      link: "https://github.com/Mr-Nothing-L/traffic-analyzer-system",
+      github: "Mr-Nothing-L/traffic-analyzer-system",
+      color: "#ff2a2a",
     },
     {
-      slug: "telemetry-lab",
-      name: "遥测实验室",
-      code: "TLM-02",
-      address: "地下层 B2",
-      status: "运行中",
-      email: "tlm@lunar.station",
-      phone: "",
-      ctaText: "查看详情",
-      ctaHref: "#",
-      image: "",
-      utcOffset: 8,
-      article: {
-        title: "遥测实验室",
-        paragraphs: [
-          "遥测实验室负责处理来自所有观测点的原始数据流。",
-          "实验室配备自研信号解析系统，能够从噪声中提取有效信息。",
-        ],
-      },
+      slug: "uav-mot",
+      name: "无人机多目标跟踪",
+      code: "UAV-02",
+      year: "2025",
+      description:
+        "针对无人机视角下的多目标跟踪优化方案。解决小目标、遮挡、快速运动等挑战性场景下的跟踪稳定性问题。",
+      techStack: ["Python", "PyTorch", "MOT", "DeepSORT", "Kalman Filter"],
+      status: "活跃开发中",
+      link: "https://github.com/Mr-Nothing-L/UAV-MOT",
+      github: "Mr-Nothing-L/UAV-MOT",
+      color: "#2a5fff",
     },
     {
-      slug: "archive-vault",
-      name: "档案库",
-      code: "ARC-03",
-      address: "地下层 B3",
-      status: "维护中",
-      email: "arc@lunar.station",
-      phone: "",
-      ctaText: "查看详情",
-      ctaHref: "#",
-      image: "",
-      utcOffset: 8,
-      article: {
-        title: "档案库",
-        paragraphs: [
-          "档案库收藏了自观测站建立以来的所有观测记录与影像资料。",
-          "每一份档案都经过编号、分类与数字化处理，确保长期保存。",
-        ],
-      },
+      slug: "awesome-agent-team",
+      name: "Agent Teams 插件",
+      code: "AGT-03",
+      year: "2025",
+      description:
+        "Claude Code 原生 Agent Teams 插件。支持随机命名、人格分配、Visionary Leader 模式，让多 Agent 协作更丝滑。",
+      techStack: ["TypeScript", "Claude API", "Shell", "Node.js"],
+      status: "持续维护",
+      link: "https://github.com/Mr-Nothing-L/awesome-agent-team",
+      github: "Mr-Nothing-L/awesome-agent-team",
+      color: "#00e5ff",
     },
     {
-      slug: "relay-station",
-      name: "中继站",
-      code: "RLY-04",
-      address: "轨道远端",
-      status: "运行中",
-      email: "rly@lunar.station",
-      phone: "",
-      ctaText: "查看详情",
-      ctaHref: "#",
-      image: "",
-      utcOffset: 0,
-      article: {
-        title: "中继站",
-        paragraphs: [
-          "中继站位于轨道远端，负责将观测数据传回地面接收站。",
-          "该设施是整个通信链路的关键节点，确保数据传输的连续性。",
-        ],
-      },
+      slug: "centerpoint-3d",
+      name: "CenterPoint 3D 检测",
+      code: "C3D-04",
+      year: "2024",
+      description:
+        "基于 CenterPoint 的 3D 目标检测工程实现。支持点云数据预处理、模型训练与推理部署。",
+      techStack: ["Python", "PyTorch", "OpenPCDet", "CUDA", "LiDAR"],
+      status: "已完成",
+      link: "https://github.com/Mr-Nothing-L/centerpoint-3d-detection",
+      github: "Mr-Nothing-L/centerpoint-3d-detection",
+      color: "#ff9500",
+    },
+    {
+      slug: "clrnet-lane",
+      name: "CLRNet 车道检测",
+      code: "CLR-05",
+      year: "2024",
+      description:
+        "基于 CLRNet 的高精度车道线检测系统。在复杂路况（弯道、阴影、遮挡）下保持鲁棒性。",
+      techStack: ["Python", "PyTorch", "OpenCV", "ONNX"],
+      status: "已完成",
+      link: "https://github.com/Mr-Nothing-L/clrnet-lane-detection",
+      github: "Mr-Nothing-L/clrnet-lane-detection",
+      color: "#a855f7",
+    },
+    {
+      slug: "vibevoice",
+      name: "VibeVoice",
+      code: "VIB-06",
+      year: "2025",
+      description:
+        "开源前沿语音 AI 前端。探索大模型与语音交互的边界，构建自然流畅的语音对话体验。",
+      techStack: ["TypeScript", "React", "WebRTC", "WebSocket"],
+      status: "探索中",
+      link: "https://github.com/Mr-Nothing-L/VibeVoice",
+      github: "Mr-Nothing-L/VibeVoice",
+      color: "#22c55e",
     },
   ],
-}
+};
 
-export const observationConfig: ObservationConfig = {
-  sectionLabel: "实时观测",
-  videoPath: "",
-  statusText: "系统正常 / 实时传输中",
-  latLabel: "纬度",
-  lonLabel: "经度",
-  initialLat: 0.6741,
-  initialLon: 23.4732,
-}
-
-export const archivesConfig: ArchivesConfig = {
-  sectionLabel: "观测档案",
-  vaultTitle: "打开档案库",
-  closeText: "关闭",
+// ─────────────────────────────────────────────
+// WORKS / GRAVITATIONAL LENS
+// ─────────────────────────────────────────────
+export const worksConfig: WorksConfig = {
+  sectionLabel: "透镜 / GRAVITATIONAL LENS",
+  vaultTitle: "进入视界",
+  closeText: "折叠",
   items: [
-    { src: "", label: "2025.01 / 满月观测" },
-    { src: "", label: "2025.02 / 月蚀记录" },
-    { src: "", label: "2025.03 / 环形山扫描" },
-    { src: "", label: "2025.04 / 轨道偏移" },
+    { src: "", label: "交通事件判别 / 实时推理", category: "CV", year: "2025" },
+    { src: "", label: "无人机跟踪 / 多目标", category: "MOT", year: "2025" },
+    { src: "", label: "Agent Teams / 多智能体", category: "Tool", year: "2025" },
+    { src: "", label: "3D 检测 / 点云处理", category: "3D", year: "2024" },
+    { src: "", label: "车道检测 / 边缘计算", category: "CV", year: "2024" },
+    { src: "", label: "周报生成 / 自动化", category: "Tool", year: "2025" },
   ],
-}
+};
 
+// ─────────────────────────────────────────────
+// ARTICLES / DATA STREAM
+// ─────────────────────────────────────────────
+export const articlesConfig: ArticlesConfig = {
+  sectionLabel: "流束 / DATA STREAM",
+  subtitle: "从数据深渊中捕获的思想碎片",
+};
+
+// ─────────────────────────────────────────────
+// FOOTER
+// ─────────────────────────────────────────────
 export const footerConfig: FooterConfig = {
-  copyrightText: "月球观测站 / 2025",
-  statusText: "系统运行正常",
-}
+  copyrightText: "MR.L · 信息奇点 / 2025",
+  statusText: "系统运行正常 / 事件视界稳定",
+};
